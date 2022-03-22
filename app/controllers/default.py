@@ -22,10 +22,10 @@ def transportadora():
         cidade = request.form['cidade']
         estado = request.form['estado']
         telefone = request.form['telefone']
-        my_data = transportadora(Transportadora=transportadora, Cidade=cidade, Estado=estado, Telefone=telefone)
+        my_data = Transportadora(Transportadora=transportadora, Cidade=cidade, Estado=estado, Telefone=telefone)
         db.session.add(my_data)
         db.session.commit()
-        flash("Dados inseridos com sucesso!")
+        #flash("Dados inseridos com sucesso!")
         return redirect(url_for('transportadora'))
     return render_template('transportadora.html', listatransportadoras=my_data)
 
@@ -41,7 +41,7 @@ def updatetransp():
         my_data.estado = request.form['estado']
         my_data.telefone = request.form['telefone']
         db.session.commit()
-        flash("Dados alterados com sucesso!")
+        #flash("Dados alterados com sucesso!")
         return redirect(url_for('transportadora'))
 
 #DELETAR A TRANSPORTADORA
@@ -51,5 +51,5 @@ def deletetransp(idtransportadora):
     my_data = Transportadoras.query.get(idtransportadora)
     db.session.delete(my_data)
     db.session.commit()
-    flash("Item deletado com sucesso!")
+    #flash("Item deletado com sucesso!")
     return redirect(url_for('transportadora'))
