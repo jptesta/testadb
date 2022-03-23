@@ -1,10 +1,9 @@
 #declaraçao das tabelas
-from app import db, app, SQLAlchemy
+from app import db
 
 from sqlalchemy.ext.automap import automap_base
 
 
-db = SQLAlchemy(app)
 
 Base = automap_base()
 Base.prepare(db.engine, reflect=True)
