@@ -6,10 +6,11 @@ from sqlalchemy.ext.automap import automap_base
 
 Base = automap_base()
 Base.prepare(db.engine, reflect=True)
-Transportadoras = Base.classes.transportadoras
-Clientes = Base.classes.clientes
-#Clientesenderecos = Base.classes.Clientesenderecos
+#Transportadoras = Base.classes.transportadoras
+#Clientes = Base.classes.clientes
+#Clientesenderecos = Base.classes.clientesenderecos
 
+print(dir(Base.classes))
 
 #DECLARAÇÃO DO BANCO DE DADOS
 class Transportadoras(db.Model):
@@ -39,31 +40,29 @@ class Clientes(db.Model):
     Caixa_postal = db.Column(db.String(255))
     Status = db.Column(db.String(255))
     Pagamentos = db.Column(db.String(255))
-    Enderecos = db.relationship('Clientesenderecos')
+    Enderecos = db.relationship('Clientesenderecos', backref="cliend")
     
 
 class Clientesenderecos(db.Model):
     __tablename__ = "clientesenderecos"
-    idenderecos = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    finalidade = db.Column("finalidade", db.String(255))
-    endereco = db.Column('endereco', db.String(255))
-    bairro = db.Column("bairro", db.String(255))
-    cidade = db.Column('cidade', db.String(255))
-    estado = db.Column('estado', db.String(255))
-    cep = db.Column('cep', db.String(255))
-    clienteid = db.Column(db.Integer, db.ForeignKey('clientes.idcliente'))
-
-
+    Idclientesenderecos = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    Finalidade = db.Column("finalidade", db.String(255))
+    Endereco = db.Column('endereco', db.String(255))
+    Bairro = db.Column("bairro", db.String(255))
+    Cidade = db.Column('cidade', db.String(255))
+    Estado = db.Column('estado', db.String(255))
+    Cep = db.Column('cep', db.String(255))
+    idcliente = db.Column(db.Integer, db.ForeignKey('clientes.Idcliente'))
 
 
 class Clientescontatos(db.Model):
     __tablename__ = "clientescontatos"
-    idclientecontato = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome = db.Column(db.String)
-    cargo = db.Column(db.String)
-    telefone = db.Column(db.String)
-    ramal = db.Column(db.String)
-    celular = db.Column(db.String)
-    email = db.Column(db.String)
-    #idcliente = db.Column("Clientes",db.Integer, db.ForeignKey("clientes.Idcliente"), nullable=False)
+    Idclientecontato = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    Nome = db.Column(db.String)
+    Cargo = db.Column(db.String)
+    Telefone = db.Column(db.String)
+    Ramal = db.Column(db.String)
+    Celular = db.Column(db.String)
+    Email = db.Column(db.String)
+    Idcliente = db.Column(db.Integer, db.ForeignKey("clientes.Idcliente"))
 
