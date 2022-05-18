@@ -1,14 +1,12 @@
 # onde ficam as rotas
 
 
-import email
 from flask import render_template, request, redirect, url_for, flash
-
 
 
 from app import app
 from app import db
-from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Transportadoras
+from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Representadas, Representadascontatos, Transportadoras
 
 
 @app.route("/")
@@ -19,7 +17,6 @@ def index():
 def cliente():
     my_data = db.session.query(Clientes).all()
     if request.method == "POST":
-             
         razao_social = request.form['razao_social']
         nome_fantasia = request.form['nome_fantasia']
         cnpj = request.form['cnpj']
@@ -44,8 +41,6 @@ def cliente():
         db.session.commit()
         #flash("Cliente cadastrado com sucessso!")
         return redirect(url_for('cliente'))
-
-
     return render_template("cliente.html",listaclientes = my_data)
 
 
@@ -83,8 +78,6 @@ def deletecliente(Idcliente):
     db.session.commit()
     #flash("Item deletado com sucesso!")
     return redirect(url_for('cliente'))
-
-
 
 #CADASTRO DE ENDEREÇOS DE CLIENTES
 @app.route('/clientesenderecos', methods=['GET', 'POST'])
@@ -150,7 +143,6 @@ def editclientescontatos():
         return redirect(url_for('clientescontatos'))
     return render_template('clientescontatos.html')
 
-
 @app.route('/deleteclientescontatos/<idclientecontato>')
 def deleteclientescontatos(Idclientecontato):
     my_data = Clientescontatos.query.get(Idclientecontato)
@@ -158,7 +150,6 @@ def deleteclientescontatos(Idclientecontato):
     db.session.commit()
     flash("contato deletado com sucesso")
     return redirect(url_for('clientescontatos'))
-
 
 #CADASTRO DE TRANSPORTADORA
 @app.route('/transportadora', methods=['GET', 'POST'])
@@ -201,3 +192,100 @@ def deletetransp(idtransportadora):
     #flash("Item deletado com sucesso!")
     return redirect(url_for('transportadora'))
 
+#CRIAR REPRESENTATADAS
+@app.route('/representadas', methods=['GET', 'POST'])
+def representadas():
+    
+    repres = db.session.query(Representadas).all()
+    if request.method == 'POST':
+        razaosocial = request.form['razaosocial']
+        cnpj = request.form['cnpj']
+        inscricaoestadual = request.form['inscricaoestadual']
+        telefone = request.form['telefone']
+        endereco = request.form['endereco']
+        bairro = request.form['bairro']
+        cidade = request.form['cidade']
+        estado = request.form['estado']
+        cep = request.form['cep']
+        comissao = request.form['comissao']
+        repres = Representadas(Razaosocial=razaosocial, Cnpj=cnpj, Inscricaoestadual = inscricaoestadual, Telefone=telefone,Endereco=endereco,Bairro=bairro,Cidade=cidade,Estado=estado,Cep=cep, Comissao=comissao)
+        db.session.add(repres)
+        db.session.commit()
+        #flash("Dados inseridos com sucesso!")
+        return redirect(url_for('representadas'))
+   
+    return render_template('representadas.html', repre=repres)
+
+@app.route('/editrepresentadas/', methods=['GET', 'POST'])
+def editrepresentada():
+    my_data = Representadas.query.get(request.form.get("idrepresentadas"))
+    if request.method == 'POST':
+        my_data.razaosocial = request.form['razaosocial']
+        my_data.cnpj = request.form['cnpj']
+        my_data.inscricaoestadual = request.form['inscricaoestadual']
+        my_data.telefone = request.form['telefone']
+        my_data.endereco = request.form['endereco']
+        my_data.bairro = request.form['bairro']
+        my_data.cidade = request.form['cidade']
+        my_data.estado = request.form['estado']
+        my_data.cep = request.form['cep']
+        my_data.comissao = request.form['comissao']
+        return redirect(url_for('representadas', repres=my_data))
+    return render_template('representadas.html')
+
+
+@app.route('/deleterepres/<idrepresentada>/', methods=['GET'])
+def deleterepres(idrepresentada):
+    my_data = Representadas.query.get(idrepresentada)
+    db.session.delete(my_data)
+    db.session.commit()
+    #flash("Item deletado com sucesso!")
+    return render_template('representadas.html')
+
+#cadastrar contatos das representadas
+@app.route('/representadacontatos', methods=['GET', 'POST'])
+def representadacontatos():
+    reprecont = db.session.query(Representadascontatos).all()
+    if request.method == 'POST':
+        #flash('Cadastrado realizado')
+        nome = request.form['nome']
+        cargo = request.form['cargo']
+        telefone = request.form['telefone']
+        celular = request.form['celular']
+        email = request.form['email']
+        reprecont = Representadascontatos(Nome=nome,Cargo=cargo,Telefone=telefone,Celular=celular,Email=email)
+        db.session.add(reprecont)
+        db.session.commit()
+        return redirect(url_for('representadacontatos'))
+    return render_template('representadacontatos.html', listacontatosrepresentada=reprecont)
+
+
+#editar contatos das representadas
+@app.route('/editarrepresentadacontatos', methods=['GET', 'POST'])
+def editarrepresentadacontatos():
+    my_data = Representadascontatos.query.get(request.form.get("idcontatorepresentada"))
+    if request.method == 'POST':
+        #flash('Cadastrado realizado')
+        my_data.nome = request.form['nome']
+        my_data.cargo = request.form['cargo']
+        my_data.telefone = request.form['telefone']
+        my_data.celular = request.form['celular']
+        my_data.email = request.form['email']
+        return redirect(url_for('representadacontatos', listacontatosrepresentada=my_data))
+    return render_template('representadacontatos.html')
+
+@app.route('/deleterepresentadacontatos', methods=['GET'])
+def deleterepresentadacontatos():
+    return redirect(url_for('representandacontatos'))
+#testes
+@app.route('/testes')
+def testes():
+    cli = db.session.query(Clientes).all()
+    cliend = db.session.query(Clientesenderecos)
+    clicon = db.session.query(Clientescontatos)
+    return render_template("testes.html", listaclientes=cli, listaenderecos=cliend, listacontatos=clicon)
+
+
+@app.route('/pyscript')
+def pyscript():
+    return render_template('pyscript.html')
