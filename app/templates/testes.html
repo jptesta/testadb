@@ -1,0 +1,23 @@
+{%extends "base.html" %}
+
+{% block content%}
+
+    {%for rowcli in listaclientes %}
+    
+        <p>{{rowcli.Razao_social}}</p>
+
+      
+        
+    {%endfor%}
+
+    {%for rowcli in listaenderecos %}
+    
+        {{rowcli.Finalidade }}</p>
+        
+    {%endfor%}
+
+    {%for concli in listacontatos %}
+        <p>{{concli.Nome }}</p>
+    {%endfor%}
+
+{%endblock%}

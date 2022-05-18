@@ -137,16 +137,16 @@
         </div>
 
 {% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-success alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="close">
-        <span aria-hidden="true">X</span>
-    </button>
-    {{message}}
-</div>
-{% endfor %}
-{% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">X</span>
+                </button>
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endwith %}
 
 
@@ -155,23 +155,23 @@
 
                     <tr>
                         <th>Razão Social:</th>
-                        <td colspan="5"> {{row.1}}</td>
+                        <td colspan="5"> {{row.Razao_social}}</td>
                     </tr>   
                     <tr>
-                        <th>Nome Fantasia:</th> <td colspan="5"> {{row.2}}</td>
+                        <th>Nome Fantasia:</th> <td colspan="5"> {{row.Nome_fantasia}}</td>
                     </tr>  
                     <tr>
                         <th>CNPJ:</th>
-                        <td colspan="2"> {{row.3}} </td>
+                        <td colspan="2"> {{row.Cnpj}} </td>
                         <th>Inscrição Estadual:</th>
-                        <td colspan="2"> {{row.4}} </td>
+                        <td colspan="2"> {{row.Inscricao_estadual}} </td>
                     </tr>
 
                     <tr>
-                        <th>Faturamento:</th>
-                        <td colspan="3">Av. Assis Chateaubriand, 30</td>
+                        <th>Finalidade:{{row.Enderecos.Finalidade}} {{row.Enderecos.Endereco}}</th>
+                        <td colspan="3"></td>
                         <th>Bairro: </th>
-                        <td colspan="2">parque sao sebastiao</td>
+                        <td colspan="2">{{row.Enderecos.bairro}}</td>
                     </tr>
 
                     <tr>
@@ -182,32 +182,32 @@
 
                     <tr>
                         <th>Contato: </th>
-                        <td>Juliano</td>
+                        <td></td>
                         <th>Telefone: </th>
-                        <td> {{row.5}} </td>
+                        <td> {{row.Telefone}} </td>
                         <th>Celular: </th>
-                        <td> {{row.6}}</td>
+                        <td> {{row.Celular}}</td>
                     </tr>
                     
                     <tr>
-                        <th>e-mail:</th><td>{{row.7}}</td>
-                        <th>Danfe:</th><td> {{row.8}}</td>
-                        <th>Site:</th><td>{{row.9}}</td>
+                        <th>e-mail:</th><td>{{row.Email}}</td>
+                        <th>Danfe:</th><td> {{row.Danfe}}</td>
+                        <th>Site:</th><td>{{row.Site}}</td>
                     </tr>
 
                     <tr>
-                        <th>Vendedor:</th><td> {{row.10}} </td>
-                        <th>visita:</th><td>{{row.11}}</td>
+                        <th>Vendedor:</th><td> {{row.Vendedor}} </td>
+                        <th>visita:</th><td>{{row.Visita}}</td>
                     </tr>
 
                     <tr>
-                        <th>Observações:</th><td> {{row.12}} </td>
+                        <th>Observações:</th><td> {{row.Observacoes}} </td>
                     </tr>
 
                     <tr>
-                        <th>Caixa Postal:</th><td>{{row.13}}</td>
-                        <th>Status:</th> <td> {{row.14}}</td>
-                        <th>Pagamentos:</th> <td>{{row.15}}</td>
+                        <th>Caixa Postal:</th><td>{{row.Caixa_postal}}</td>
+                        <th>Status:</th> <td> {{row.Status}}</td>
+                        <th>Pagamentos:</th> <td>{{row.Pagamentos}}</td>
                     </tr>
 
 <!-- -->
@@ -220,9 +220,9 @@
                         
                         <a href="{{url_for('clientesenderecos')}}" class="btn btn-secondary btn-sm">Cadastrar Endereços</a>
                         
-                        <a href="/editcliente/{{ row.0 }}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaleditcliente{{row.0}}">Editar Cliente</a>
+                        <a href="/editcliente{{row.Idcliente}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaleditcliente{{row.Idcliente}}">Editar Cliente</a>
                        
-                        <a href="/deletecliente/{{row.0}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>
+                        <a href="/deletecliente/{{row.Idcliente}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>
                     </td>
                 </tr>
 
@@ -232,7 +232,7 @@
 </table>
 
 <!--MODAL EDIT Cliente -->
-<div class="modal fade bd-example-modal-lg" id="modaleditcliente{{row.0}}" tabindex="-1" role="dialog">
+<div class="modal fade bd-example-modal-lg" id="modaleditcliente{{row.Idcliente}}" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -247,80 +247,80 @@
                                 <form action="{{ url_for('editcliente') }}" method="POST">
 
                                     <div class="form-group" method="POST">
-                                        <input type="hidden" name="idcliente" value="{{row.0}}">
+                                        <input type="hidden" name="idcliente" value="{{row.Idcliente}}">
                                         <label>Razao Social:</label>
-                                        <input type="text" class="form-control" name="razao_social" value="{{row.1}}"/>
+                                        <input type="text" class="form-control" name="razao_social" value="{{row.Razao_social}}"/>
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Nome Fantasia:</label>
-                                        <input type="text" class="form-control" name="nome_fantasia" value="{{row.2}}" />
+                                        <input type="text" class="form-control" name="nome_fantasia" value="{{row.Nome_fantasia}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>CNPJ:</label>
-                                        <input type="text" class="form-control" name="cnpj" value="{{row.3}}" required />
+                                        <input type="text" class="form-control" name="cnpj" value="{{row.Cnpj}}" required />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Inscrição Estadual:</label>
-                                        <input type="text" class="form-control" name="inscricao_estadual" value="{{row.4}}" />
+                                        <input type="text" class="form-control" name="inscricao_estadual" value="{{row.Inscricao_estadual}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Telefone:</label>
-                                        <input type="text" class="form-control" name="telefone" value="{{row.5}}" />
+                                        <input type="text" class="form-control" name="telefone" value="{{row.Telefone}}" />
                                     </div>
             
                                          
                                     <div class="form-group" method="POST">
                                         <label>Celular:</label>
-                                        <input type="text" class="form-control" name="celular" value="{{row.6}}" />
+                                        <input type="text" class="form-control" name="celular" value="{{row.Celular}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>e-mail:</label>
-                                        <input type="text" class="form-control" name="email" value="{{row.7}}" />
+                                        <input type="text" class="form-control" name="email" value="{{row.Email}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>e-mail para envio NFe:</label>
-                                        <input type="text" class="form-control" name="danfe" value="{{row.8}}" />
+                                        <input type="text" class="form-control" name="danfe" value="{{row.Danfe}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Site:</label>
-                                        <input type="text" class="form-control" name="site" value="{{row.9}}" />
+                                        <input type="text" class="form-control" name="site" value="{{row.Site}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Vendedor:</label>
-                                        <input type="text" class="form-control" name="vendedor" value="{{row.10}}" />
+                                        <input type="text" class="form-control" name="vendedor" value="{{row.Vendedor}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Visita:</label>
-                                        <input type="text" class="form-control" name="visita" value="{{row.11}}" />
+                                        <input type="text" class="form-control" name="visita" value="{{row.Visita}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Observações:</label>
-                                        <input type="text" class="form-control"  name="observacoes" value="{{row.12}}" rows="5">
+                                        <input type="text" class="form-control"  name="observacoes" value="{{row.Observacoes}}" rows="5">
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Caixa Postal:</label>
-                                        <input type="text" class="form-control" name="caixa_postal" value="{{row.13}}" />
+                                        <input type="text" class="form-control" name="caixa_postal" value="{{row.Caixa_postal}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Status:</label>
-                                        <input type="text" class="form-control" name="status" value="{{row.14}}" />
+                                        <input type="text" class="form-control" name="status" value="{{row.Status}}" />
                                     </div>
             
                                     <div class="form-group" method="POST">
                                         <label>Pagamentos:</label>
-                                        <input type="text" class="form-control" name="pagamentos" value="{{row.15}}" />
+                                        <input type="text" class="form-control" name="pagamentos" value="{{row.Pagamentos}}" />
                                     </div>
             
                             </div>

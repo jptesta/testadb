@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+{% block content %}
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron p-3">
+                    <h2>Contatos</h2>
+                        <!-- Botão para acionar modal -->
+                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modalclicontatos">Cadastrar Contatos</button>
+                </div>
+            </div>
+        </div>  
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalclicontatos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabe" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cadastro de Contatos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url_for('clientescontatos')}}" method="POST">
+                        <div class="form-group" method="POST">
+                        
+                            <div class="form-group" method="POST">
+                                                          
+                                <label>Código Cliente:</label>
+                                <input type="text" class="form-control" name="idcliente">
+                            </div>
+
+
+                            <div class="form-group" method="POST">
+                                <label>Nome:</label>
+                                <input type="text" class="form-control" name="nome"/>
+                            </div>  
+
+                            <div class="form-group" method="POST">
+                                <label>Cargo:</label>
+                                <input type="text" class="form-control" name="cargo">
+                            </div>
+                            
+                            <div class="form-group" method="POST">
+                                <label>Telefone:</label>
+                                <input type="text" class="form-control" name="telefone">
+                            </div>
+
+                            <div class="form-group" method="POST">
+                                <label>Ramal:</label>
+                                <input type="text" class="form-control" name="ramal">
+                            </div>
+
+                            <div>
+                                <label>Celular:</label>
+                                <input type="text" class="form-control" name="celular"
+                            </div>
+                            
+                            <div class="form-group" method="POST">
+                                <label>e-mail:</label>
+                                <input type="text" class="form-control" name="email">
+                            </div>
+
+                        </div>
+                        
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Salvar</button>
+                    </div>
+
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+      
+<table class="table">
+    <tr>
+        <td colspan="8">Cliente</td>
+    </tr>
+	<tr>
+        <td>codigo Contato</td>
+    
+        <td>Nome</td>
+		<td>Cargo</td>
+		<td>Telefone</td>
+		<td>Ramal</td>
+		<td>Celular</td>
+        <td>e-mail</td>
+		<td>Ação</td>
+	</tr>
+ 
+{% for row in listacontatos %}
+    <tr >
+        <td colspan="8">{{row.clicon.Razao_social}} 
+    </tr>
+	<tr>
+        <td>{{row.Idclientecontato}}</td>
+      
+		<td>{{row.Nome}}</td>
+		<td>{{row.Cargo}}</td>
+		<td>{{row.Telefone}}</td>
+		<td>{{row.Ramal}}</td>
+        <td>{{row.Celular}}</td>
+        <td>{{row.Email}}</td>
+       
+		<td>
+            <a href="/editclientescontatos/{{row.Idclientecontato}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaleditclientescontatos{{row.Idclientecontato}}">Editar</a>
+			<a href="/deleteclientescontatos/{{row.Idclientecontato}}" class="btn btn-danger btn-sm" onclick="return confirm(' tem certeza que deseja apagar o contato?')">Apagar</a>    
+		</td>
+	</tr>
+
+    <!-- Modal edit contato-->
+    <div class="modal fade" id="modaleditclientescontatos{{row.Idclientecontato}}" tabindex="-1" role="dialog" aria-labelledby="modaleditclientescontatos{{row.Idclientecontato}}"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Contato</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url_for('editclientescontatos')}}" method="POST">
+                        <div class="form-group" method="POST">
+                            
+                            <div class="form-group" method="POST">
+                              
+                                <input type="hidden" class="form-control" name="idclientecontato" value="{{row.Idclientecontato}}">
+                                <label>Código Cliente:</label>
+                                <input type="text" class="form-control" name="idcliente" value="{{row.clicon.Razao_social}}">
+                            </div>
+
+                            <div class="form-group" method="POST">
+                                <label>Nome:</label>
+                                <input type="text" class="form-control" name="nome" value="{{row.Nome}}" >
+                            </div>
+
+                            <div class="form-group" method="POST">
+                                <label>Cargo:</label>
+                                <input type="text" class="form-control" name="cargo" value="{{row.Cargo}}">
+                            </div>
+    
+                            <div class="form-group" method="POST">
+                                <label>Telefone:</label>
+                                <input type="text" class="form-control" name="telefone" value="{{row.Telefone}}">
+                            </div>
+    
+                            <div class="form-group" method="POST">
+                                <label>Ramal:</label>
+                                <input type="text" class="form-control" name="ramal" value="{{row.Ramal}}">
+                            </div>
+
+                            <div class="form-group" method="POST">
+                                <label>Celular:</label>
+                                <input type="text" class="form-control" name="celular" value="{{row.Celular}}">
+                            </div>
+
+                            <div class="form-group" method="POST">
+                                <label>e-mail:</label>
+                                <input type="text" class="form-control" name="email" value="{{row.Email}}">
+                            </div>
+    
+                        </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="Submit" class="btn btn-primary">Salvar </button>
+                            </div>
+    
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endfor %}
+</table>
+
+	</body>
+
+    <!--
+	<div class="list-group">
+        <a href="/" class="list-group-item list-group-item-action">Início</a>
+        <a href="/clientescontatos" class="list-group-item list-group-item-action">Cadasatrar Contatos</a>
+        
+    </div>
+-->
+
+</div>
+
+</html>
+{% endblock %}

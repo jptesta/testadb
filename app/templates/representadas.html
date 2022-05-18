@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron p-3">
+                <h2>Representadas</h2>
+                <button type="button" class="btn btn-success float-right" data-toggle="modal"
+                    data-target="#mymodalrepresentadas">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                        {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+   
+    <!-- Modal cadastro representada -->
+<div class="modal fade" id="mymodalrepresentadas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mymodalrepresentadas">Cadastrar representada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="modal-body">
+    
+                    <form action="{{url_for('representadas')}}" method="POST">
+    
+                        <div class="form-group" method="POST"> 
+                            <label>Razao Social:</label>
+                            <input type="text" class="form-control" name="razaosocial">
+                        </div>
+
+                        <div class="form-group" method='POST'>
+                            <label>CNPJ:</label>
+                            <input type="text" class="form-control" name="cnpj">
+                        </div>
+                        
+                        <div class="form-group" method="POST">
+                            <label>Inscrição Estadual:</label>
+                            <input type="text" class="form-control" name="inscricaoestadual">
+                        </div>
+
+                        <div class="form-group" method="POST">
+                            <label>Telefone:</label>
+                            <input type="text" class="form-control" name="telefone">
+                        </div>
+
+                        <div class="form-group" method="POST">
+                            <label>Endereço:</label>
+                            <input type="text" class="form-control" name="endereco">
+                        </div>
+
+                        <div class="form-group" method="POST">
+                            <label>Bairro:</label>
+                            <input type="text" class="form-control" name="bairro">
+                        </div>
+
+                        <div class="form-group" method="POST">
+                            <label>Cidade:</label>
+                            <input type="text" class="form-control" name="cidade">
+                        </div>
+
+                        <div class="form-group" method="POST">
+                            <label>Estado:</label>
+                            <input type="text" class="form-control"  name="estado">
+                        </div>
+
+                        <div class="form-group" method="POST">
+                            <label>CEP:</label>
+                            <input type="text" class="form-control" name="cep">
+                        </div>
+
+                        <div class="form-group" method="POST">
+                            <label>Comissão:</label>
+                            <input type="text" class="form-control" name="comissao">
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Enviar</button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+    
+                </form>
+
+            </div>
+        </div>
+    </div>
+<font size="2">
+    <table class="table">
+
+        <tr>
+            <td>Codigo</td>
+            <td>Razão Social</td>
+            <td>CNPJ</td>
+            <td>Inscrição Estadual</td>
+            <td>Telefone</td>
+            <td>Endereço</td>
+            <td>Bairro</td>
+            <td>Cidade</td>
+            <td>Estado</td>
+            <td>CEP</td>
+            <td>Comissão</td>
+            <td>Ação</td>
+        </tr>
+{% for row in repre %}
+        <tr>
+            <td>{{row.Idrepresentada}}</td>
+            <td>{{row.Razaosocial}} </td>
+            <td>{{row.Cnpj}}</td>
+            <td>{{row.Inscricaoestadual}}</td>
+            <td>{{row.Telefone}}</td>
+            <td>{{row.Endereco}}</td>
+            <td>{{row.Bairro}}</td>
+            <td>{{row.Cidade}}</td>
+            <td>{{row.Estado}}</td>
+            <td>{{row.Cep}}</td>
+            <td>{{row.Comissao}}</td>
+            <td>    
+                <a href="/editrepresentadas/{{row.Idrepresentada}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#mymodaleditrepresentadas{{row.Idrepresentada}}">Editar</a>
+                <a href="/deleterepres/{{row.Idrepresentada}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>
+            </td>
+        </tr>
+
+         
+
+    <!-- Modal editar representada -->
+
+    <div class="modal fade" id="mymodaleditrepresentadas{{row.Idrepresentada}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mymodaleditrepresentadas">Editar representada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form action="{{url_for('representadas')}}" method="POST"> 
+
+                        <div class="form-group" method="POST">
+                            <input type="hidden" class="form-control" name="idrepresentada" value="{{row.Idrepresentada}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Razao Social:</label>
+                            <input type="text" class="form-control" name="razaosocial" value="{{row.Razaosocial}}">
+                        </div>
+    
+                        <div class="form-group" method='POST'>
+                            <label>CNPJ</label>
+                            <input type="text" class="form-control" name="cnpj" value="{{row.Cnpj}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Inscrição Estadual:</label>
+                            <input type="text" class="form-control" name="inscricaoestadual" value="{{row.Inscricaoestadual}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Telefone:</label>
+                            <input type="text" class="form-control" name="telefone" value="{{row.Telefone}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Endereço:</label>
+                            <input type="text" class="form-control" name="endereco" value="{{row.Endereco}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Bairro:</label>
+                            <input type="text" class="form-control" name="bairro" value="{{row.Bairro}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Cidade:</label>
+                            <input type="text" class="form-control" name="cidade" value="{{row.Cidade}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Estado:</label>
+                            <input type="text" class="form-control" name="estado" value="{{row.Estado}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>CEP:</label>
+                            <input type="text" class="form-control" name="cep" value="{{row.Cep}}">
+                        </div>
+    
+                        <div class="form-group" method="POST">
+                            <label>Comissão:</label>
+                            <input type="text" class="form-control" name="comissao" value="{{row.Comissao}}">
+                        </div>
+    
+                        <br>
+    
+                        <div class="form-group"method="POST">
+                            <button class="btn btn-primary" value="salvar" type="submit">Enviar</button>
+                        </div>
+                    </form>
+    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+    
+                </form>
+    
+            </div>
+        </div>
+    </div>
+
+
+
+{%endfor%}
+</table>
+</font>
+
+
+</div>
+
+
+
+
+</body>
+</html>
+{% endblock %}
