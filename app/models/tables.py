@@ -5,6 +5,8 @@ from app import db
 from sqlalchemy.ext.automap import automap_base
 
 
+
+
 Base = automap_base()
 Base.prepare(db.engine, reflect=True)
 #Transportadoras = Base.classes.transportadoras
@@ -43,6 +45,7 @@ class Clientes(db.Model):
     Pagamentos = db.Column(db.String(255))
     Enderecos = db.relationship('Clientesenderecos', backref="cliend")
     Contatos = db.relationship('Clientescontatos', backref="clicon")
+    Contatosrealizados = db.relationship('Contatos_realizados', backref="crealizado")
     
 
 class Clientesenderecos(db.Model):
@@ -93,3 +96,14 @@ class Representadascontatos(db.Model):
     Email = db.Column(db.String)
    # Representada = db.relationship("representa", backref="repre")
     Idrepresentada = db.Column(db.Integer, db.ForeignKey("representadas.Idrepresentada"))
+
+class Contatos_realizados(db.Model):
+    __tablename__ = "contatos_realizados"
+    Id_contato_realizados = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    Data_contato = db.Column(db.String)
+    #Idcliente = db.Column(db.String)
+    Pessoa_de_contato = db.Column(db.String)
+    Metodo_de_contato = db.Column(db.String)
+    Descricao = db.Column(db.String)
+    idcliente = db.Column(db.Integer, db.ForeignKey("clientes.Idcliente"))
+

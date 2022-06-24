@@ -6,7 +6,7 @@ from flask import render_template, request, redirect, url_for, flash
 
 from app import app
 from app import db
-from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Representadas, Representadascontatos, Transportadoras
+from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Contatos_realizados, Representadas, Representadascontatos, Transportadoras
 
 
 @app.route("/")
@@ -216,7 +216,7 @@ def representadas():
    
     return render_template('representadas.html', repre=repres)
 
-@app.route('/editrepresentadas/', methods=['GET', 'POST'])
+@app.route('/editrepresentada/', methods=['GET', 'POST'])
 def editrepresentada():
     my_data = Representadas.query.get(request.form.get("idrepresentadas"))
     if request.method == 'POST':
@@ -235,8 +235,8 @@ def editrepresentada():
 
 
 @app.route('/deleterepres/<idrepresentada>/', methods=['GET'])
-def deleterepres(idrepresentada):
-    my_data = Representadas.query.get(idrepresentada)
+def deleterepres(Idrepresentada):
+    my_data = Representadas.query.get(Idrepresentada)
     db.session.delete(my_data)
     db.session.commit()
     #flash("Item deletado com sucesso!")
@@ -259,11 +259,10 @@ def representadacontatos():
         return redirect(url_for('representadacontatos'))
     return render_template('representadacontatos.html', listacontatosrepresentada=reprecont)
 
-
 #editar contatos das representadas
 @app.route('/editarrepresentadacontatos', methods=['GET', 'POST'])
 def editarrepresentadacontatos():
-    my_data = Representadascontatos.query.get(request.form.get("idcontatorepresentada"))
+    my_data = Representadascontatos.query.get(request.form.get("Idcontatorepresentada"))
     if request.method == 'POST':
         #flash('Cadastrado realizado')
         my_data.nome = request.form['nome']
@@ -274,9 +273,23 @@ def editarrepresentadacontatos():
         return redirect(url_for('representadacontatos', listacontatosrepresentada=my_data))
     return render_template('representadacontatos.html')
 
-@app.route('/deleterepresentadacontatos', methods=['GET'])
-def deleterepresentadacontatos():
-    return redirect(url_for('representandacontatos'))
+
+@app.route('/deleterepresentadacontatos/<Idcontatorepresentada>', methods=['GET'])
+def deleterepresentadacontatos(Idcontatorepresentada):
+    my_data = Representadascontatos.query.get(Idcontatorepresentada)
+    db.session.delete(my_data)
+    db.session.commit()
+    #flash("Item deletado com sucesso!")
+    return render_template('representadacontatos.html')
+
+
+@app.route('/contatosrealizados', methods=['GET', 'POST'])
+def contatosrealizados():
+    my_data = db.session.query(Contatos_realizados).all()
+    return render_template('contatosrealizados.html', my_data=my_data)
+
+
+
 #testes
 @app.route('/testes')
 def testes():
@@ -289,3 +302,8 @@ def testes():
 @app.route('/pyscript')
 def pyscript():
     return render_template('pyscript.html')
+
+
+@app.route('/javascript')
+def javascript():
+    return render_template('javascript.html')
