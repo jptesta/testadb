@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title%} Clientes {% endblock %} </title>
+</head>
+
+<body>
+    {% block content  %}
+
+    <div class="container">
+        <div>
+
+<!-- Botão para acionar modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo">
+    Cadastrar Contato
+</button>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Data do Contato</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Pessoa de contato</th>
+                        <th scope="col">Método de contato</th>
+                        <th scope="col">Descrição </th>
+                    </tr>
+                </thead>
+                                
+                <tbody>
+        {% for row in my_data %}
+                    <tr>
+                        <td scope="row">{{row.Id_contato_realizados }}</td>
+                        <td scope="row">{{row.Data_contato}}</td>
+                        <td scope="row">{{row.crealizado.Razao_social}} </td>
+                        <td scope="row">{{row.Pessoa_de_contato}} </td>
+                        <td scope="row">{{row.Metodo_de_contato}}</td>
+                        <td scope="row">{{row.Descricao}}</td>
+
+                    </tr>
+                </tbody>
+        {% endfor %}
+
+            </table>
+
+        </div>
+
+        
+
+
+ 
+    </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cadastre o contato realizado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <form action="" method="POST">
+                    <div class="form-group">
+                        
+                        <div>
+                            <label>ID</label>
+                            <input type="hidden" class="form-control" name="id">
+                        </div>
+
+                        <div>
+                            <label>Data do Contato:</label>
+                            <input type="date" class="form-control" name="data">
+                        </div>
+
+                        <div>
+                            <label>Cliente</label>
+                            <input type="text" class="form-control" name="cliente">
+                        </div>
+
+                        <div>
+                            <label>Pessoa de Contato</label>
+                            <input type="text" class="form-control" name="pessoadecontato">
+                        </div>
+
+                        <div>
+                            <!--
+                                <label>Método Contato</label>
+                                <input type="text" class="form-control" name="metododecontato">
+                            -->
+                            <label for="select">Método de Contato:</label>
+                            <select class="form-control" id="select" name="metododecontato">
+                                <option></option>
+                                <option>Telefone</option>
+                                <option>Visita</option>
+                                <option>e-mail</option>
+                            </select>
+
+                        </div>
+
+                        <div>
+                            <!--
+                            <label>Descrição</label>
+                            <input type="text" class="form-control" name="descricao">
+                            -->
+                            <label for="descricao">Descrição</label>
+                            <textarea class="form-control" id="descricao" rows="5"></textarea>
+
+
+                        </div>
+                    
+
+                    </div>
+                </form>
+                
+            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                    </div>
+
+                
+        </div>
+    </div>
+</div>
+
+    {% endblock%}
+
+
+</body>
