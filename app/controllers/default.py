@@ -192,7 +192,7 @@ def deletetransp(idtransportadora):
     #flash("Item deletado com sucesso!")
     return redirect(url_for('transportadora'))
 
-#CRIAR REPRESENTATADAS
+#Cadastrar REPRESENTATADAS
 @app.route('/representadas', methods=['GET', 'POST'])
 def representadas():
     
@@ -208,7 +208,8 @@ def representadas():
         estado = request.form['estado']
         cep = request.form['cep']
         comissao = request.form['comissao']
-        repres = Representadas(Razaosocial=razaosocial, Cnpj=cnpj, Inscricaoestadual = inscricaoestadual, Telefone=telefone,Endereco=endereco,Bairro=bairro,Cidade=cidade,Estado=estado,Cep=cep, Comissao=comissao)
+        repres = Representadas(Razaosocial=razaosocial, Cnpj=cnpj, Inscricaoestadual=inscricaoestadual,Telefone=telefone,
+                               Endereco=endereco,Bairro=bairro,Cidade=cidade,Estado=estado,Cep=cep, Comissao=comissao)
         db.session.add(repres)
         db.session.commit()
         #flash("Dados inseridos com sucesso!")
@@ -234,7 +235,7 @@ def editrepresentada():
     return render_template('representadas.html')
 
 
-@app.route('/deleterepres/<idrepresentada>/', methods=['GET'])
+@app.route('/deleterepres/<Idrepresentada>/', methods=['GET'])
 def deleterepres(Idrepresentada):
     my_data = Representadas.query.get(Idrepresentada)
     db.session.delete(my_data)
