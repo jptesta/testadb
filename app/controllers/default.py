@@ -3,15 +3,16 @@
 
 from flask import render_template, request, redirect, url_for, flash
 
-
 from app import app
 from app import db
-from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Contatos_realizados, Representadas, Representadascontatos, Transportadoras
+from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, ContatosRealizados, Representadas, \
+    Representadascontatos, Transportadoras
 
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/cliente", methods=["GET", "POST"])
 def cliente():
@@ -32,19 +33,20 @@ def cliente():
         caixa_postal = request.form['caixa_postal']
         status = request.form['status']
         pagamentos = request.form['pagamentos']
-        my_data = Clientes(Razao_social=razao_social,Nome_fantasia=nome_fantasia, Cnpj=cnpj, Inscricao_estadual=inscricao_estadual, 
-                            Telefone=telefone, Celular=celular,
+        my_data = Clientes(Razao_social=razao_social, Nome_fantasia=nome_fantasia, Cnpj=cnpj,
+                           Inscricao_estadual=inscricao_estadual,
+                           Telefone=telefone, Celular=celular,
                            Email=email, Danfe=danfe, Site=site,
-                            Vendedor=vendedor, Visita=visita, 
-                            Observacoes=observacoes, Caixa_postal=caixa_postal, Status=status, Pagamentos=pagamentos)
+                           Vendedor=vendedor, Visita=visita,
+                           Observacoes=observacoes, Caixa_postal=caixa_postal, Status=status, Pagamentos=pagamentos)
         db.session.add(my_data)
         db.session.commit()
-        #flash("Cliente cadastrado com sucessso!")
+        # flash("Cliente cadastrado com sucessso!")
         return redirect(url_for('cliente'))
-    return render_template("cliente.html",listaclientes = my_data)
+    return render_template("cliente.html", listaclientes=my_data)
 
 
-#EDITAR CLIENTE
+# EDITAR CLIENTE
 @app.route('/editcliente/', methods=['GET', 'POST'])
 def editcliente():
     if request.method == 'POST':
@@ -67,23 +69,25 @@ def editcliente():
         my_data.Pagamentos = request.form['pagamentos']
         db.session.add(my_data)
         db.session.commit()
-        #flash("Cliente alterado com sucesso!!")
+        # flash("Cliente alterado com sucesso!!")
         return redirect(url_for('cliente'))
 
-#DELETAR CLIENTE
+
+# DELETAR CLIENTE
 @app.route('/deletecliente/<Idcliente>/', methods=['GET'])
 def deletecliente(Idcliente):
     my_data = Clientes.query.get(Idcliente)
     db.session.delete(my_data)
     db.session.commit()
-    #flash("Item deletado com sucesso!")
+    # flash("Item deletado com sucesso!")
     return redirect(url_for('cliente'))
 
-#CADASTRO DE ENDEREÇOS DE CLIENTES
+
+# CADASTRO DE ENDEREÇOS DE CLIENTES
 @app.route('/clientesenderecos', methods=['GET', 'POST'])
 def clientesenderecos():
     my_data = db.session.query(Clientesenderecos).all()
-    
+
     if request.method == "POST":
         finalidade = request.form['finalidade']
         endereco = request.form['endereco']
@@ -91,14 +95,16 @@ def clientesenderecos():
         cidade = request.form['cidade']
         estado = request.form['estado']
         cep = request.form['cep']
-        my_data = Clientesenderecos(Finalidade=finalidade,Endereco=endereco,Bairro=bairro,Cidade=cidade,Estado=estado,Cep=cep)
+        my_data = Clientesenderecos(Finalidade=finalidade, Endereco=endereco, Bairro=bairro, Cidade=cidade,
+                                    Estado=estado, Cep=cep)
         db.session.add(my_data)
         db.session.commit()
         return redirect(url_for('clientesenderecos'))
-    
+
     return render_template('clientesenderecos.html', listaenderecos=my_data)
 
-#EDIÇÃO DO ENDEREÇO DE CLIENTES
+
+# EDIÇÃO DO ENDEREÇO DE CLIENTES
 @app.route('/editclientesenderecos', methods=['GET', 'POST'])
 def editclientesenderecos():
     if request.method == "POST":
@@ -112,7 +118,8 @@ def editclientesenderecos():
         return redirect(url_for('clientesenderecos'))
     return render_template('clientesenderecos.html')
 
-#CADASTROS DOS CONTATOS
+
+# CADASTROS DOS CONTATOS
 @app.route('/clientescontatos', methods=['GET', 'POST'])
 def clientescontatos():
     my_data = db.session.query(Clientescontatos).all()
@@ -123,11 +130,11 @@ def clientescontatos():
         ramal = request.form['ramal']
         celular = request.form['celular']
         email = request.form['email']
-        my_data = Clientescontatos(Nome=nome,Cargo=cargo,Telefone=telefone,Ramal=ramal,Celular=celular,Email=email)
+        my_data = Clientescontatos(Nome=nome, Cargo=cargo, Telefone=telefone, Ramal=ramal, Celular=celular, Email=email)
         db.session.add(my_data)
         db.session.commit()
         return redirect(url_for('clientescontatos'))
-    return render_template('clientescontatos.html', listacontatos = my_data)
+    return render_template('clientescontatos.html', listacontatos=my_data)
 
 
 @app.route('/editclientescontatos')
@@ -143,6 +150,7 @@ def editclientescontatos():
         return redirect(url_for('clientescontatos'))
     return render_template('clientescontatos.html')
 
+
 @app.route('/deleteclientescontatos/<idclientecontato>')
 def deleteclientescontatos(Idclientecontato):
     my_data = Clientescontatos.query.get(Idclientecontato)
@@ -151,7 +159,8 @@ def deleteclientescontatos(Idclientecontato):
     flash("contato deletado com sucesso")
     return redirect(url_for('clientescontatos'))
 
-#CADASTRO DE TRANSPORTADORA
+
+# CADASTRO DE TRANSPORTADORA
 @app.route('/transportadora', methods=['GET', 'POST'])
 def transportadora():
     my_data = db.session.query(Transportadoras).all()
@@ -163,13 +172,13 @@ def transportadora():
         my_data = Transportadoras(Transportadora=transportadora, Cidade=cidade, Estado=estado, Telefone=telefone)
         db.session.add(my_data)
         db.session.commit()
-        #flash("Dados inseridos com sucesso!")
+        # flash("Dados inseridos com sucesso!")
         return redirect(url_for('transportadora'))
 
     return render_template('transportadora.html', listatransportadoras=my_data)
 
 
-#ATUALIZAÇÃO DO CADASTRO DA TRANSPORTADORA
+# ATUALIZAÇÃO DO CADASTRO DA TRANSPORTADORA
 @app.route('/updatetransp/', methods=['POST', 'GET'])
 def updatetransp():
     if request.method == "POST":
@@ -180,22 +189,23 @@ def updatetransp():
         my_data.Estado = request.form['estado']
         my_data.Telefone = request.form['telefone']
         db.session.commit()
-        #flash("Dados alterados com sucesso!")
+        # flash("Dados alterados com sucesso!")
         return redirect(url_for('transportadora', listatransportadoras=my_data))
 
-#DELETAR A TRANSPORTADORA
+
+# DELETAR A TRANSPORTADORA
 @app.route('/deletetransp/<idtransportadora>/', methods=['GET'])
 def deletetransp(idtransportadora):
     my_data = Transportadoras.query.get(idtransportadora)
     db.session.delete(my_data)
     db.session.commit()
-    #flash("Item deletado com sucesso!")
+    # flash("Item deletado com sucesso!")
     return redirect(url_for('transportadora'))
 
-#Cadastrar REPRESENTATADAS
+
+# Cadastrar REPRESENTATADAS
 @app.route('/representadas', methods=['GET', 'POST'])
 def representadas():
-    
     repres = db.session.query(Representadas).all()
     if request.method == 'POST':
         razaosocial = request.form['razaosocial']
@@ -208,14 +218,17 @@ def representadas():
         estado = request.form['estado']
         cep = request.form['cep']
         comissao = request.form['comissao']
-        repres = Representadas(Razaosocial=razaosocial, Cnpj=cnpj, Inscricaoestadual=inscricaoestadual,Telefone=telefone,
-                               Endereco=endereco,Bairro=bairro,Cidade=cidade,Estado=estado,Cep=cep, Comissao=comissao)
+        repres = Representadas(Razaosocial=razaosocial, Cnpj=cnpj, Inscricaoestadual=inscricaoestadual,
+                               Telefone=telefone,
+                               Endereco=endereco, Bairro=bairro, Cidade=cidade, Estado=estado, Cep=cep,
+                               Comissao=comissao)
         db.session.add(repres)
         db.session.commit()
-        #flash("Dados inseridos com sucesso!")
+        # flash("Dados inseridos com sucesso!")
         return redirect(url_for('representadas'))
-   
+
     return render_template('representadas.html', repre=repres)
+
 
 @app.route('/editrepresentada/', methods=['GET', 'POST'])
 def editrepresentada():
@@ -240,32 +253,34 @@ def deleterepres(Idrepresentada):
     my_data = Representadas.query.get(Idrepresentada)
     db.session.delete(my_data)
     db.session.commit()
-    #flash("Item deletado com sucesso!")
+    # flash("Item deletado com sucesso!")
     return render_template('representadas.html')
 
-#cadastrar contatos das representadas
+
+# cadastrar contatos das representadas
 @app.route('/representadacontatos', methods=['GET', 'POST'])
 def representadacontatos():
     reprecont = db.session.query(Representadascontatos).all()
     if request.method == 'POST':
-        #flash('Cadastrado realizado')
+        # flash('Cadastrado realizado')
         nome = request.form['nome']
         cargo = request.form['cargo']
         telefone = request.form['telefone']
         celular = request.form['celular']
         email = request.form['email']
-        reprecont = Representadascontatos(Nome=nome,Cargo=cargo,Telefone=telefone,Celular=celular,Email=email)
+        reprecont = Representadascontatos(Nome=nome, Cargo=cargo, Telefone=telefone, Celular=celular, Email=email)
         db.session.add(reprecont)
         db.session.commit()
         return redirect(url_for('representadacontatos'))
     return render_template('representadacontatos.html', listacontatosrepresentada=reprecont)
 
-#editar contatos das representadas
+
+# editar contatos das representadas
 @app.route('/editarrepresentadacontatos', methods=['GET', 'POST'])
 def editarrepresentadacontatos():
     my_data = Representadascontatos.query.get(request.form.get("Idcontatorepresentada"))
     if request.method == 'POST':
-        #flash('Cadastrado realizado')
+        # flash('Cadastrado realizado')
         my_data.nome = request.form['nome']
         my_data.cargo = request.form['cargo']
         my_data.telefone = request.form['telefone']
@@ -280,18 +295,28 @@ def deleterepresentadacontatos(Idcontatorepresentada):
     my_data = Representadascontatos.query.get(Idcontatorepresentada)
     db.session.delete(my_data)
     db.session.commit()
-    #flash("Item deletado com sucesso!")
+    # flash("Item deletado com sucesso!")
     return render_template('representadacontatos.html')
 
 
 @app.route('/contatosrealizados', methods=['GET', 'POST'])
 def contatosrealizados():
-    my_data = db.session.query(Contatos_realizados).all()
+    my_data = db.session.query(ContatosRealizados).all()
+    if request.method == 'POST':
+        my_data.data = request.form['data']
+        my_data.cliente = request.form['cliente']
+        my_data.pessoadecontato = request.form['pessoadecontato']
+        my_data.metododecontato = request.form['metododecontato']
+        my_data.descricao = request.form['descricao']
+        my_data = ContatosRealizados(
+            Data=data, Cliente=cliente, Pessoa_de_contato=pessoadecontato, Metododecontato=metododecontato,
+            Descricao=descricao)
+        db.session.add(my_data)
+        db.session.commit()
     return render_template('contatosrealizados.html', my_data=my_data)
 
 
-
-#testes
+# testes
 @app.route('/testes')
 def testes():
     cli = db.session.query(Clientes).all()
