@@ -23,7 +23,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
+                        <!--<th scope="col">ID</th>-->
                         <th scope="col">Data do Contato</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Pessoa de contato</th>
@@ -35,25 +35,21 @@
                 <tbody>
         {% for row in my_data %}
                     <tr>
-                        <td scope="row">{{row.Id_contato_realizados }}</td>
-                        <td scope="row">{{row.Data_contato}}</td>
+                        <!--<td scope="row">{{row.Id_contato_realizados }}</td>-->
                         <td scope="row">{{row.crealizado.Razao_social}} </td>
+                        <td scope="row">{{row.Data_contato}}</td>
                         <td scope="row">{{row.Pessoa_de_contato}} </td>
                         <td scope="row">{{row.Metodo_de_contato}}</td>
                         <td scope="row">{{row.Descricao}}</td>
 
                     </tr>
                 </tbody>
-        {% endfor %}
 
+
+        {% endfor %}
             </table>
 
         </div>
-
-        
-
-
- 
     </div>
 
 
@@ -71,27 +67,27 @@
 
             <div class="modal-body">
 
-                <form action="" method="POST">
+                <form action=" {{url_for('contatosrealizados')}} " method="POST">
                     <div class="form-group">
                         
-                        <div>
+                        <div class="form-group">
                             <label>ID</label>
                             <input type="hidden" class="form-control" name="id">
                         </div>
 
-                        <div>
+                        <div class="form-group">
                             <label>Data do Contato:</label>
                             <input type="date" class="form-control" name="data">
                         </div>
 
-                        <div>
+                        <div class="form-group">
                             <label>Cliente</label>
                             <input type="text" class="form-control" name="cliente">
                         </div>
 
-                        <div>
+                        <div class="form-group">
                             <label>Pessoa de Contato</label>
-                            <input type="text" class="form-control" name="pessoadecontato">
+                            <input type="text" class="form-control" name="pessoa_de_contato">
                         </div>
 
                         <div>
@@ -100,7 +96,7 @@
                                 <input type="text" class="form-control" name="metododecontato">
                             -->
                             <label for="select">Método de Contato:</label>
-                            <select class="form-control" id="select" name="metododecontato">
+                            <select class="form-control" id="select" name="metodo_de_contato">
                                 <option></option>
                                 <option>Telefone</option>
                                 <option>Visita</option>
@@ -109,27 +105,27 @@
 
                         </div>
 
-                        <div>
+                        <div class="form-group">
                             <!--
                             <label>Descrição</label>
                             <input type="text" class="form-control" name="descricao">
                             -->
-                            <label for="descricao">Descrição</label>
-                            <textarea class="form-control" id="descricao" rows="5"></textarea>
+                            <label for="descricao" >Descrição</label>
+                            <textarea class="form-control" id="descricao_contato" name="descricao_contato" rows="5"></textarea>
 
 
                         </div>
                     
 
                     </div>
-                </form>
-                
-            </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         <button type="button" class="btn btn-primary">Salvar mudanças</button>
                     </div>
+                </form>
 
+            </div>
                 
         </div>
     </div>

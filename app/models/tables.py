@@ -98,7 +98,7 @@ class Representadascontatos(db.Model):
     Idrepresentada = db.Column(db.Integer, db.ForeignKey("representadas.Idrepresentada"))
 
 
-class ContatosRealizados(db.Model):
+class Contatos_realizados(db.Model):
     __tablename__ = "contatos_realizados"
     Id_contato_realizados = db.Column(db.Integer, primary_key=True, autoincrement=True)
     Data_contato = db.Column(db.String)
