@@ -6,7 +6,7 @@ from flask import render_template, request, redirect, url_for, flash
 from app import app
 from app import db
 from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Contatos_realizados, Representadas, \
-    Representadascontatos, Transportadoras
+    Representadascontatos, Transportadoras 
 
 
 @app.route("/")
@@ -303,11 +303,11 @@ def deleterepresentadacontatos(Idcontatorepresentada):
 def contatosrealizados():
     my_data = db.session.query(Contatos_realizados).all()
     if request.method == 'POST':
-        my_data.data_contato = request.form['data_contato']
-        my_data.cliente = request.form['cliente']
-        my_data.pessoadecontato = request.form['pessoa_de_contato']
-        my_data.metododecontato = request.form['metodo_de_contato']
-        my_data.descricao = request.form['descricao_contato']
+        data_contato = request.form['data_contato']
+        cliente = request.form['cliente']
+        pessoa_de_contato = request.form['pessoa_de_contato']
+        metodo_de_contato = request.form['metodo_de_contato']
+        descricao_contato = request.form['descricao_contato']
         my_data = Contatos_realizados(Data_contato=data_contato, Cliente=cliente, Pessoa_de_contato=pessoa_de_contato,
                                      Metodo_de_contato=metodo_de_contato, Descricao=descricao_contato)
         db.session.add(my_data)
