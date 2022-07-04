@@ -298,6 +298,20 @@ def deleterepresentadacontatos(Idcontatorepresentada):
     # flash("Item deletado com sucesso!")
     return render_template('representadacontatos.html')
 
+@app.route('/solicitacoes')
+def solicitacoes():
+    return render_template('solicitacoes.html')
+
+@app.route('/orcamentos')
+def orcamentos():
+    return render_template('orcamentos.html')
+
+
+@app.route('/pedido')
+def pedido():
+    return render_template('pedido.html')
+
+
 
 @app.route('/contatosrealizados', methods=['GET', 'POST'])
 def contatosrealizados():
