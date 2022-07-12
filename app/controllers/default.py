@@ -312,7 +312,6 @@ def pedido():
     return render_template('pedido.html')
 
 
-
 @app.route('/contatosrealizados', methods=['GET', 'POST'])
 def contatosrealizados():
     my_data = db.session.query(Contatos_realizados).all()
