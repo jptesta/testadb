@@ -13,6 +13,16 @@ from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Con
 def index():
     return render_template("index.html")
 
+@app.route('/search', methods=['GET','POST'])
+def search():
+    if request.method == 'POST':
+        form = request.form
+        search_value = form['search_string']
+        search = "%{0}%".format(search_value)
+        results = Clientes.query.filter(Clientes.Razao_social.like(search)).all()
+        return render_template('clientes.html', results=results)
+    else:
+        return redirect('clientes.html')
 
 @app.route("/cliente", methods=["GET", "POST"])
 def cliente():
@@ -327,6 +337,7 @@ def contatosrealizados():
         db.session.commit()
         return redirect(url_for('contatosrealizados'))
     return render_template('contatosrealizados.html', my_data=my_data)
+
 
 
 # testes
