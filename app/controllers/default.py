@@ -9,9 +9,9 @@ from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Con
     Representadascontatos, Transportadoras 
 
 
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template('index.html')
 
 @app.route('/search', methods=['GET','POST'])
 def search():
@@ -340,7 +340,7 @@ def contatosrealizados():
 
 
 
-# testes
+# TESTES 
 @app.route('/testes')
 def testes():
     cli = db.session.query(Clientes).all()
@@ -358,10 +358,12 @@ def pyscript():
 def javascript():
     return render_template('javascript.html')
 
+
 @app.route('/clientescompletos')
 def clientescompletos():
     return render_template('clientescompletos.html')
 
-@app.route('/treeview')
+
+@app.route("/treeview")
 def treeview():
     return render_template('treeview.html')

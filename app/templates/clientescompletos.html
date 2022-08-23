@@ -1,8 +1,10 @@
-{%extends "base.html"%}
+<html>
+<{%extends "base.html"%}
 
 {%block content%}
 EXPLAIN SELECT * FROM clientes INNER JOIN clientesenderecos ON clientes.idcliente=clientesenderecos.idclientesenderecos
 INNER JOIN clientescontatos on clientes.idcliente=clientescontatos.idcliente INNER JOIN contatos_realizados ON
 clientes.idcliente=contatos_realizados.idcliente
 
-{%endblock%}
+{%endblock%}>
+</html>
