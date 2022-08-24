@@ -339,7 +339,6 @@ def contatosrealizados():
     return render_template('contatosrealizados.html', my_data=my_data)
 
 
-
 # TESTES 
 @app.route('/testes')
 def testes():
@@ -358,12 +357,6 @@ def pyscript():
 def javascript():
     return render_template('javascript.html')
 
-
-@app.route('/clientescompletos')
-def clientescompletos():
-    return render_template('clientescompletos.html')
-
-
-@app.route("/treeview")
+@app.route('/treeview')
 def treeview():
     return render_template('treeview.html')
