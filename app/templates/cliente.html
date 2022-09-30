@@ -9,12 +9,10 @@
 </head>
 <body>
 
-
-
-
    	{% block content %}
 
-		<div class="container">
+		<div class="container">       
+
 
             <div class="row">
                 <div class="col-md-12">
@@ -150,8 +148,43 @@
 {% endwith %}
 
 
+
+<div class="container">
+            <form action="" method="POST">
+                <div class="form-group">
+                
+                    <div class="form-group" method="POST">
+                        <input type="text" class="form-control" autofocus="autofocus" name="search_string">
+                        <input type="submit" formaction="/search" value="Procurar" class="btn btn-primary" >
+                    </div>
+                </div>
+
+            </form>
+</div>
+
+
+<table>
+    <thead>
+        <tr>
+            <td>Razao Social</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in results %}
+        <tr>
+            <td> {{row.results}} </td>
+        </tr>
+    </tbody>
+
+</table>
+
+        {% endfor %}
+
+        
+                      
 {% for row in listaclientes   %}
-                <table width="80%" align="center">
+    <table width="80%" align="center">
 
                     <tr>
                         <th>Razão Social:</th>

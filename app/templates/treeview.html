@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html>
+
+{% block content %}
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        ul,
+        #myUL {
+            list-style-type: none;
+        }
+
+        #myUL {
+            margin: 0;
+            padding: 0;
+        }
+
+        .caret {
+            cursor: pointer;
+            -webkit-user-select: none;
+            /* Safari 3.1+ */
+            -moz-user-select: none;
+            /* Firefox 2+ */
+            -ms-user-select: none;
+            /* IE 10+ */
+            user-select: none;
+        }
+
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .caret-down::before {
+            -ms-transform: rotate(90deg);
+            /* IE 9 */
+            -webkit-transform: rotate(90deg);
+            /* Safari */
+            '
+ transform: rotate(90deg);
+        }
+
+        .nested {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Tree View</h2>
+    <p>A tree view represents a hierarchical view of information, where each item can have a number of subitems.</p>
+    <p>Click on the arrow(s) to open or close the tree branches.</p>
+
+    <ul id="myUL">
+        <li><span class="caret">Beverages</span>
+            <ul class="nested">
+                <li>Water</li>
+                <li>Coffee</li>
+                <li><span class="caret">Tea</span>
+                    <ul class="nested">
+                        <li>Black Tea</li>
+                        <li>White Tea</li>
+                        <li><span class="caret">Green Tea</span>
+                            <ul class="nested">
+                                <li>Sencha</li>
+                                <li>Gyokuro</li>
+                                <li>Matcha</li>
+                                <li>Pi Lo Chun</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+
+    
+
+
+</body>
+
+<!--
+<div class="treeview w-20 border">
+  <h6 class="pt-3 pl-3">Folders</h6>
+  <hr>
+  <ul class="mb-1 pl-3 pb-2">
+    <li><i class="fas fa-angle-right rotate"></i>
+      <span><i class="far fa-envelope-open ic-w mx-1"></i>Mail</span>
+      <ul class="nested">
+        <li><i class="far fa-bell ic-w mr-1"></i>Offers</li>
+        <li><i class="far fa-address-book ic-w mr-1"></i>Contacts</li>
+        <li><i class="fas fa-angle-right rotate"></i>
+          <span><i class="far fa-calendar-alt ic-w mx-1"></i>Calendar</span>
+          <ul class="nested">
+            <li><i class="far fa-clock ic-w mr-1"></i>Deadlines</li>
+            <li><i class="fas fa-users ic-w mr-1"></i>Meetings</li>
+            <li><i class="fas fa-basketball-ball ic-w mr-1"></i>Workouts</li>
+            <li><i class="fas fa-mug-hot ic-w mr-1"></i>Events</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><i class="fas fa-angle-right rotate"></i>
+      <span><i class="far fa-folder-open ic-w mx-1"></i>Inbox</span>
+      <ul class="nested">
+        <li><i class="far fa-folder-open ic-w mr-1"></i>Admin</li>
+        <li><i class="far fa-folder-open ic-w mr-1"></i>Corporate</li>
+        <li><i class="far fa-folder-open ic-w mr-1"></i>Finance</li>
+        <li><i class="far fa-folder-open ic-w mr-1"></i>Other</li>
+      </ul>
+    </li>
+    <li><i class="fas fa-angle-right rotate"></i>
+      <span><i class="far fa-gem ic-w mx-1"></i>Favourites</span>
+      <ul class="nested">
+          <li><i class="fas fa-pepper-hot ic-w mr-1"></i>Restaurants</li>
+          <li><i class="far fa-eye ic-w mr-1"></i>Places</li>
+          <li><i class="fas fa-gamepad ic-w mr-1"></i>Games</li>
+          <li><i class="fas fa-cocktail ic-w mr-1"></i>Coctails</li>
+          <li><i class="fas fa-pizza-slice ic-w mr-1"></i>Food</li>
+        </ul>
+    </li>
+    <li><i class="far fa-comment ic-w mr-1"></i>Notes</li>
+    <li><i class="fas fa-cogs ic-w mr-1"></i>Settings</li>
+    <li><i class="fas fa-desktop ic-w mr-1"></i>Devices</li>
+    <li><i class="fas fa-trash-alt ic-w mr-1"></i>Deleted Items</li>
+  </ul>
+</div>
+
+</html>
+<script>
+    // Treeview Initialization
+    $(document).ready(function () {
+        $('.treeview').mdbTreeview();
+    });
+</script>
+-->
+{%endblock%}

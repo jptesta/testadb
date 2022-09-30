@@ -9,10 +9,20 @@ from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Con
     Representadascontatos, Transportadoras 
 
 
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template('index.html')
 
+@app.route('/search', methods=['GET','POST'])
+def search():
+    if request.method == 'POST':
+        form = request.form
+        search_value = form['search_string']
+        search = "%{0}%".format(search_value)
+        results = Clientes.query.filter(Clientes.Razao_social.like(search)).all()
+        return render_template('clientes.html', results=results)
+    else:
+        return redirect('clientes.html')
 
 @app.route("/cliente", methods=["GET", "POST"])
 def cliente():
@@ -312,7 +322,6 @@ def pedido():
     return render_template('pedido.html')
 
 
-
 @app.route('/contatosrealizados', methods=['GET', 'POST'])
 def contatosrealizados():
     my_data = db.session.query(Contatos_realizados).all()
@@ -330,7 +339,7 @@ def contatosrealizados():
     return render_template('contatosrealizados.html', my_data=my_data)
 
 
-# testes
+# TESTES 
 @app.route('/testes')
 def testes():
     cli = db.session.query(Clientes).all()
@@ -347,3 +356,11 @@ def pyscript():
 @app.route('/javascript')
 def javascript():
     return render_template('javascript.html')
+
+@app.route('/clientescompletos')
+def clientescompletos():
+    return render_template('clientescompletos.html')
+
+@app.route('/treeview')
+def treeview():
+    return render_template('treeview.html')
