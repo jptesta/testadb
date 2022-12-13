@@ -69,6 +69,15 @@ class Clientescontatos(db.Model):
     Email = db.Column(db.String)
     idcliente = db.Column(db.Integer, db.ForeignKey("clientes.Idcliente"))
 
+class Contatos_realizados(db.Model):
+    __tablename__ = "contatos_realizados"
+    Id_contato_realizados = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    Data_contato = db.Column(db.String)
+    # Idcliente = db.Column(db.String)
+    Pessoa_de_contato = db.Column(db.String)
+    Metodo_de_contato = db.Column(db.String)
+    Descricao = db.Column(db.String)
+    idcliente = db.Column(db.Integer, db.ForeignKey("clientes.Idcliente"))
 
 class Representadas(db.Model):
     __tablename__ = "representadas"
@@ -94,16 +103,8 @@ class Representadascontatos(db.Model):
     Telefone = db.Column(db.String)
     Celular = db.Column(db.String)
     Email = db.Column(db.String)
-    # Representada = db.relationship("representa", backref="repre")
+    #representada = db.relationship("Representadas", backref="repre")
     Idrepresentada = db.Column(db.Integer, db.ForeignKey("representadas.Idrepresentada"))
 
 
-class Contatos_realizados(db.Model):
-    __tablename__ = "contatos_realizados"
-    Id_contato_realizados = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    Data_contato = db.Column(db.String)
-    # Idcliente = db.Column(db.String)
-    Pessoa_de_contato = db.Column(db.String)
-    Metodo_de_contato = db.Column(db.String)
-    Descricao = db.Column(db.String)
-    idcliente = db.Column(db.Integer, db.ForeignKey("clientes.Idcliente"))
+
