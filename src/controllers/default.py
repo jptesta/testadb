@@ -1,19 +1,21 @@
 # onde ficam as rotas
 
+import os
+from database import db
+from flask import render_template, request, redirect, url_for, flash, Blueprint, current_app
+from models.tables import Clientes, Clientescontatos, Clientesenderecos, Contatos_realizados, Representadas, \
+    Representadascontatos, Transportadoras
 
-from flask import render_template, request, redirect, url_for, flash
+bp_default = Blueprint(
+    "default",
+    __name__,
+    template_folder="../templates")
 
-from app import app
-from app import db
-from app.models.tables import Clientes, Clientescontatos, Clientesenderecos, Contatos_realizados, Representadas, \
-    Representadascontatos, Transportadoras 
-
-
-@app.route('/')
+@bp_default.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/search', methods=['GET','POST'])
+@bp_default.route('/search', methods=['GET','POST'])
 def search():
     if request.method == 'POST':
         form = request.form
@@ -24,7 +26,7 @@ def search():
     else:
         return redirect('clientes.html')
 
-@app.route("/cliente", methods=["GET", "POST"])
+@bp_default.route("/cliente", methods=["GET", "POST"])
 def cliente():
     my_data = db.session.query(Clientes).all()
     if request.method == "POST":
@@ -57,7 +59,7 @@ def cliente():
 
 
 # EDITAR CLIENTE
-@app.route('/editcliente/', methods=['GET', 'POST'])
+@bp_default.route('/editcliente/', methods=['GET', 'POST'])
 def editcliente():
     if request.method == 'POST':
         my_data = Clientes.query.get(request.form.get('idcliente'))
@@ -84,7 +86,7 @@ def editcliente():
 
 
 # DELETAR CLIENTE
-@app.route('/deletecliente/<Idcliente>/', methods=['GET'])
+@bp_default.route('/deletecliente/<Idcliente>/', methods=['GET'])
 def deletecliente(Idcliente):
     my_data = Clientes.query.get(Idcliente)
     db.session.delete(my_data)
@@ -94,7 +96,7 @@ def deletecliente(Idcliente):
 
 
 # CADASTRO DE ENDEREÇOS DE CLIENTES
-@app.route('/clientesenderecos', methods=['GET', 'POST'])
+@bp_default.route('/clientesenderecos', methods=['GET', 'POST'])
 def clientesenderecos():
     my_data = db.session.query(Clientesenderecos).all()
 
@@ -115,7 +117,7 @@ def clientesenderecos():
 
 
 # EDIÇÃO DO ENDEREÇO DE CLIENTES
-@app.route('/editclientesenderecos', methods=['GET', 'POST'])
+@bp_default.route('/editclientesenderecos', methods=['GET', 'POST'])
 def editclientesenderecos():
     if request.method == "POST":
         my_data = Clientesenderecos.query.get(request.form.get("idclientesenderecos"))
@@ -130,7 +132,7 @@ def editclientesenderecos():
 
 
 # CADASTROS DOS CONTATOS
-@app.route('/clientescontatos', methods=['GET', 'POST'])
+@bp_default.route('/clientescontatos', methods=['GET', 'POST'])
 def clientescontatos():
     my_data = db.session.query(Clientescontatos).all()
     if request.method == 'POST':
@@ -147,7 +149,7 @@ def clientescontatos():
     return render_template('clientescontatos.html', listacontatos=my_data)
 
 
-@app.route('/editclientescontatos')
+@bp_default.route('/editclientescontatos')
 def editclientescontatos():
     my_data = Clientescontatos.query.get(request.form.get("idclientecontatos"))
     if request.method == 'POST':
@@ -161,7 +163,7 @@ def editclientescontatos():
     return render_template('clientescontatos.html')
 
 
-@app.route('/deleteclientescontatos/<idclientecontato>')
+@bp_default.route('/deleteclientescontatos/<idclientecontato>')
 def deleteclientescontatos(Idclientecontato):
     my_data = Clientescontatos.query.get(Idclientecontato)
     db.session.delete(my_data)
@@ -171,7 +173,7 @@ def deleteclientescontatos(Idclientecontato):
 
 
 # CADASTRO DE TRANSPORTADORA
-@app.route('/transportadora', methods=['GET', 'POST'])
+@bp_default.route('/transportadora', methods=['GET', 'POST'])
 def transportadora():
     my_data = db.session.query(Transportadoras).all()
     if request.method == "POST":
@@ -189,7 +191,7 @@ def transportadora():
 
 
 # ATUALIZAÇÃO DO CADASTRO DA TRANSPORTADORA
-@app.route('/updatetransp/', methods=['POST', 'GET'])
+@bp_default.route('/updatetransp/', methods=['POST', 'GET'])
 def updatetransp():
     if request.method == "POST":
         my_data = Transportadoras.query.get(request.form.get('idtransportadora'))
@@ -204,7 +206,7 @@ def updatetransp():
 
 
 # DELETAR A TRANSPORTADORA
-@app.route('/deletetransp/<idtransportadora>/', methods=['GET'])
+@bp_default.route('/deletetransp/<idtransportadora>/', methods=['GET'])
 def deletetransp(idtransportadora):
     my_data = Transportadoras.query.get(idtransportadora)
     db.session.delete(my_data)
@@ -214,7 +216,7 @@ def deletetransp(idtransportadora):
 
 
 # Cadastrar REPRESENTATADAS
-@app.route('/representadas', methods=['GET', 'POST'])
+@bp_default.route('/representadas', methods=['GET', 'POST'])
 def representadas():
     repres = db.session.query(Representadas).all()
     if request.method == 'POST':
@@ -240,7 +242,7 @@ def representadas():
     return render_template('representadas.html', repre=repres)
 
 
-@app.route('/editrepresentada/', methods=['GET', 'POST'])
+@bp_default.route('/editrepresentada/', methods=['GET', 'POST'])
 def editrepresentada():
     my_data = Representadas.query.get(request.form.get("idrepresentadas"))
     if request.method == 'POST':
@@ -258,7 +260,7 @@ def editrepresentada():
     return render_template('representadas.html')
 
 
-@app.route('/deleterepres/<Idrepresentada>/', methods=['GET'])
+@bp_default.route('/deleterepres/<Idrepresentada>/', methods=['GET'])
 def deleterepres(Idrepresentada):
     my_data = Representadas.query.get(Idrepresentada)
     db.session.delete(my_data)
@@ -268,7 +270,7 @@ def deleterepres(Idrepresentada):
 
 
 # cadastrar contatos das representadas
-@app.route('/representadacontatos', methods=['GET', 'POST'])
+@bp_default.route('/representadacontatos', methods=['GET', 'POST'])
 def representadacontatos():
     reprecont = db.session.query(Representadascontatos).all()
     if request.method == 'POST':
@@ -286,7 +288,7 @@ def representadacontatos():
 
 
 # editar contatos das representadas
-@app.route('/editarrepresentadacontatos', methods=['GET', 'POST'])
+@bp_default.route('/editarrepresentadacontatos', methods=['GET', 'POST'])
 def editarrepresentadacontatos():
     my_data = Representadascontatos.query.get(request.form.get("Idcontatorepresentada"))
     if request.method == 'POST':
@@ -300,7 +302,7 @@ def editarrepresentadacontatos():
     return render_template('representadacontatos.html')
 
 
-@app.route('/deleterepresentadacontatos/<Idcontatorepresentada>', methods=['GET'])
+@bp_default.route('/deleterepresentadacontatos/<Idcontatorepresentada>', methods=['GET'])
 def deleterepresentadacontatos(Idcontatorepresentada):
     my_data = Representadascontatos.query.get(Idcontatorepresentada)
     db.session.delete(my_data)
@@ -308,21 +310,21 @@ def deleterepresentadacontatos(Idcontatorepresentada):
     # flash("Item deletado com sucesso!")
     return render_template('representadacontatos.html')
 
-@app.route('/solicitacoes')
+@bp_default.route('/solicitacoes')
 def solicitacoes():
     return render_template('solicitacoes.html')
 
-@app.route('/orcamentos')
+@bp_default.route('/orcamentos')
 def orcamentos():
     return render_template('orcamentos.html')
 
 
-@app.route('/pedido')
+@bp_default.route('/pedido')
 def pedido():
     return render_template('pedido.html')
 
 
-@app.route('/contatosrealizados', methods=['GET', 'POST'])
+@bp_default.route('/contatosrealizados', methods=['GET', 'POST'])
 def contatosrealizados():
     my_data = db.session.query(Contatos_realizados).all()
     if request.method == 'POST':
@@ -339,8 +341,8 @@ def contatosrealizados():
     return render_template('contatosrealizados.html', my_data=my_data)
 
 
-# TESTES 
-@app.route('/testes')
+# TESTES
+@bp_default.route('/testes')
 def testes():
     cli = db.session.query(Clientes).all()
     cliend = db.session.query(Clientesenderecos)
@@ -348,19 +350,19 @@ def testes():
     return render_template("testes.html", listaclientes=cli, listaenderecos=cliend, listacontatos=clicon)
 
 
-@app.route('/pyscript')
+@bp_default.route('/pyscript')
 def pyscript():
     return render_template('pyscript.html')
 
 
-@app.route('/javascript')
+@bp_default.route('/javascript')
 def javascript():
     return render_template('javascript.html')
 
-@app.route('/clientescompletos')
+@bp_default.route('/clientescompletos')
 def clientescompletos():
     return render_template('clientescompletos.html')
 
-@app.route('/treeview')
+@bp_default.route('/treeview')
 def treeview():
     return render_template('treeview.html')
