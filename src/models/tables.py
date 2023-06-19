@@ -1,17 +1,6 @@
 # declaraçao das tabelas
 
-from app import db
-
-from sqlalchemy.ext.automap import automap_base
-
-Base = automap_base()
-Base.prepare(db.engine, reflect=True)
-# Transportadoras = Base.classes.transportadoras
-# Clientes = Base.classes.clientes
-# Clientesenderecos = Base.classes.clientesenderecos
-
-print(dir(Base.classes))
-
+from database import db
 
 # DECLARAÇÃO DO BANCO DE DADOS
 class Transportadoras(db.Model):
@@ -105,6 +94,3 @@ class Representadascontatos(db.Model):
     Email = db.Column(db.String)
     #representada = db.relationship("Representadas", backref="repre")
     Idrepresentada = db.Column(db.Integer, db.ForeignKey("representadas.Idrepresentada"))
-
-
-
