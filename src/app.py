@@ -2,7 +2,6 @@ import os
 from database import db
 from flask import Flask
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 from controllers.default import bp_default
 
 app = Flask(__name__)
