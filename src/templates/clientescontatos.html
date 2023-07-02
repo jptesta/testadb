@@ -34,7 +34,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{url_for('clientescontatos')}}" method="POST">
+                    <form action="{{url_for('default.clientescontatos')}}" method="POST">
                         <div class="form-group" method="POST">
                         
                             <div class="form-group" method="POST">
@@ -132,8 +132,8 @@
         <td>{{row.Email}}</td>
        
 		<td>
-            <a href="/editclientescontatos/{{row.Idclientecontato}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaleditclientescontatos{{row.Idclientecontato}}">Editar</a>
-			<a href="/deleteclientescontatos/{{row.Idclientecontato}}" class="btn btn-danger btn-sm" onclick="return confirm(' tem certeza que deseja apagar o contato?')">Apagar</a>    
+            <a href="/default.editclientescontatos/{{row.Idclientecontato}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaleditclientescontatos{{row.Idclientecontato}}">Editar</a>
+			<a href="/default.deleteclientescontatos/{{row.Idclientecontato}}" class="btn btn-danger btn-sm" onclick="return confirm(' tem certeza que deseja apagar o contato?')">Apagar</a>    
 		</td>
 	</tr>
 
@@ -149,7 +149,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{url_for('editclientescontatos')}}" method="POST">
+                    <form action="{{url_for('default.editclientescontatos')}}" method="POST">
                         <div class="form-group" method="POST">
                             
                             <div class="form-group" method="POST">

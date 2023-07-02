@@ -37,7 +37,7 @@
                             
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <form action="{{url_for('cliente')}}" method="POST">
+                                    <form action="{{url_for('default.cliente')}}" method="POST">
                                         
                                         <div class="form-group" method="POST">
                                             <label>Razao Social:</label>
@@ -249,9 +249,9 @@
                     <td colspan="6">
 
 
-                        <a href="{{url_for('clientescontatos')}}" class="btn btn-primary btn-sm" >Cadastrar Contatos</a>
+                        <a href="{{url_for('default.clientescontatos')}}" class="btn btn-primary btn-sm" >Cadastrar Contatos</a>
                         
-                        <a href="{{url_for('clientesenderecos')}}" class="btn btn-secondary btn-sm">Cadastrar Endereços</a>
+                        <a href="{{url_for('default.clientesenderecos')}}" class="btn btn-secondary btn-sm">Cadastrar Endereços</a>
                         
                         <a href="/editcliente{{row.Idcliente}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaleditcliente{{row.Idcliente}}">Editar Cliente</a>
                        
@@ -277,7 +277,7 @@
             
                         <div class="modal-body">
                             <div class="form-group">
-                                <form action="{{ url_for('editcliente') }}" method="POST">
+                                <form action="{{ url_for('default.editcliente') }}" method="POST">
 
                                     <div class="form-group" method="POST">
                                         <input type="hidden" name="idcliente" value="{{row.Idcliente}}">
