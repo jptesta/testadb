@@ -9,7 +9,7 @@
             <div class="jumbotron p-3">
                 <h2>Representadas</h2>
                 <button type="button" class="btn btn-success float-right" data-toggle="modal"
-                    data-target="#mymodalrepresentadas">Cadastrar</button>
+                        data-target="#mymodalrepresentadas">Cadastrar</button>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
     
                 <div class="modal-body">
     
-                    <form action="{{url_for('representadas')}}" method="POST">
+                    <form action="{{url_for('representadas.representadas')}}" method="POST">
     
                         <div class="form-group" method="POST"> 
                             <label>Razao Social:</label>
@@ -145,8 +145,8 @@
             <td>{{row.Cep}}</td>
             <td>{{row.Comissao}}</td>
             <td>    
-                <a href="/editrepresentadas/{{row.Idrepresentada}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#mymodaleditrepresentadas{{row.Idrepresentada}}">Editar</a>
-                <a href="/deleterepres/{{row.Idrepresentada}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>
+                <a href="/representadas.editrepresentadas/{{row.Idrepresentada}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#mymodaleditrepresentadas{{row.Idrepresentada}}">Editar</a>
+                <a href="/representadas.deleterepres/{{row.Idrepresentada}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>
             </td>
         </tr>
         
@@ -171,7 +171,7 @@
 
                 <div class="modal-body">
 
-                    <form action="{{url_for('representadas')}}" method="POST"> 
+                    <form action="{{url_for('representadas.representadas')}}" method="POST"> 
 
                         <div class="form-group" method="POST">
                             <input type="hidden" class="form-control" name="idrepresentada" value="{{row.Idrepresentada}}">

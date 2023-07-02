@@ -33,7 +33,7 @@
                 
                     <div class="modal-body">
                         
-                        <form action="{{url_for('default.transportadora')}}" method="POST">
+                        <form action="{{url_for('transportadoras.transportadora')}}" method="POST">
                            
                                     <div class="form-group" method="POST">
                                      
@@ -106,8 +106,8 @@
         <td>{{row.Estado}}</td>
         <td>{{row.Telefone}}</td>
         <td> 
-            <a href="/default.updatetransp/{{row.idtransportadora}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledittransportadora{{row.idtransportadora}}">Editar</a>
-            <a href="/default.deletetransp/{{row.idtransportadora}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>  
+            <a href="/transportadoras.updatetransp/{{row.idtransportadora}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledittransportadora{{row.idtransportadora}}">Editar</a>
+            <a href="/transportadoras.deletetransp/{{row.idtransportadora}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>  
         </td>
     </tr>
 
@@ -120,7 +120,7 @@
                     <h4 class="modal-tittle">Editar Dados</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url_for('default.updatetransp') }}" method="POST">
+                    <form action="{{ url_for('transportadoras.updatetransp') }}" method="POST">
                         <div class="form-group">
                             <input type="hidden" name="idtransportadora" value="{{row.idtransportadora}}">
                                 <label>Transportadora:</label>

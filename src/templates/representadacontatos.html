@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 
 <head>
@@ -15,21 +15,82 @@
 {% block content %}
 
 <div class="container">
+
     <div class="row">
         <div class="col-md-12">
             <div class="jumbotron p-3">
                 <h2>Contatos</h2>
                 <!-- Botão para acionar modal -->
-                <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modalcontatorepres">Cadastrar Contatos</button>
+                <button type="button" 
+                        class="btn btn-success float-right" 
+                        data-toggle="modal" 
+                        data-target="#modalcontatorepres"
+                        >Cadastrar Contatos
+                </button>
             </div>
         </div>
     </div>
+
+
+<!-- Modal Cadastro -->
+<div class="modal fade" id="modalcontatorepres" tabindex="-1" role="dialog" aria-labelledby="examleModalLabe" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cadastro de Contatos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form action="" method="POST">
+                    <div class="form-goup" method="POST">    
+                        
+                            <div class="form-group" method="POST" > 
+                                <label>Nome:</label>
+                                <input type="text" class="form-control" name="nome" >
+                            </div>  
+
+                            <div class="form-group" method="POST">
+                                <label>Cargo:</label>
+                                <input type="text" class="form-control" name="cargo">
+                            </div>
+                            
+                            <div class="form-group" method="POST">
+                                <label>Telefone:</label>
+                                <input type="text" class="form-control" name="telefone">
+                            </div>
+
+                            <div class="form-group" method="POST">
+                                <label>Celular:</label>
+                                <input type="text" class="form-control" name="celular">
+                            </div>
+
+                            <div class="form-group" method="POST">
+                                <label>Email:</label>
+                                <input type="text" class="form-control" name="email">
+                            </div>
+                </form>    
+
+            
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>   
+    </div>      
+</div>
+
+
 
 <table class="table">
 {% for row in listacontatosrepresentada %}
         <tr>
             <th>Representada:</th>
-            <td> {{ row.rcontato.Razaosocial}} </td>
+            <td> {{row.rcontato.Razaosocial}} </td>
         </tr>
             <tr>
                 <th>Nome</th>
@@ -50,84 +111,31 @@
                     <td>{{ row.Celular}}</td>
                     <td>{{ row.Email}}</td>
                     <td>
-                        <a href="/editarrepresentadacontatos/{{row.Idcontatorepresentada}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editmodalcontatorepres{{row.Idcontatorepresentada}}">Editar</a>
-                        <a href="/deleterepresentadacontatos/{{row.Idcontatorepresentada}}" class="btn btn-danger btn-sm" onclick="return confirm(' tem certeza que deseja apagar o contato?')">Apagar</a>
+                        <a href="/representadas.editarrepresentadacontatos/{{row.Idcontatorepresentada}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editmodalcontatorepres{{row.Idcontatorepresentada}}">Editar</a>
+                        <a href="/representadas.deleterepresentadacontatos/{{row.Idcontatorepresentada}}" class="btn btn-danger btn-sm" onclick="return confirm(' tem certeza que deseja apagar o contato?')">Apagar</a>
                     </td>
                 </tr>
   
 
 </div>
 
-<!-- Modal Cadastro -->
-    <div class="modal fade" id="modalcontatorepres" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabe" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cadastro de Contatos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <form action="" method="POST">
-                        <div class="form-goup" method="POST">    
-                            
-                                <div class="form-group" method="POST" > 
-                                    <label>Nome:</label>
-                                    <input type="text" class="form-control" name="nome" >
-                                </div>  
-
-                                <div class="form-group" method="POST">
-                                    <label>Cargo:</label>
-                                    <input type="text" class="form-control" name="cargo">
-                                </div>
-                                
-                                <div class="form-group" method="POST">
-                                    <label>Telefone:</label>
-                                    <input type="text" class="form-control" name="telefone">
-                                </div>
-
-                                <div class="form-group" method="POST">
-                                    <label>Celular:</label>
-                                    <input type="text" class="form-control" name="celular">
-                                </div>
-
-                                <div class="form-group" method="POST">
-                                    <label>Email:</label>
-                                    <input type="text" class="form-control" name="email">
-                                </div>
-                    </form>    
-
-                
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
-                </div>
-            </div>   
-        </div>      
-    </div>
-    
 <!-- esse div esta perdido mas nao funciona o modal editmodalcontatorepres  sem ele-->
 </div>
-
 
 <!-- Modal Edit -->
 <div class="modal fade" id="editmodalcontatorepres{{row.Idcontatorepresentada}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabe" aria-hidden="true">
 
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Editar Contato</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
-                </button>
+            </button>
             </div>
 
             <div class="modal-body">
-                <form action="{{url_for('editarrepresentadacontatos')}}" method="POST">
+                <form action="{{url_for('representadas.editarrepresentadacontatos')}}" method="POST">
                     <div class="form-group" method="POST">    
 
                             <div class="form-group" method="POST">
