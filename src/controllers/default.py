@@ -3,8 +3,9 @@
 import os
 from database import db
 from flask import render_template, request, redirect, url_for, flash, Blueprint, current_app
-from models.tables import Clientes, Clientescontatos, Clientesenderecos, Contatos_realizados, Representadas, \
-    Representadascontatos
+from models.tables import Clientes, Clientescontatos, Clientesenderecos, Contatos_realizados
+
+
 
 bp_default = Blueprint(
     "default",
@@ -81,7 +82,7 @@ def editcliente():
         my_data.Pagamentos = request.form['pagamentos']
         db.session.add(my_data)
         db.session.commit()
-        # flash("Cliente alterado com sucesso!!")
+        flash("Cliente alterado com sucesso!!")
         return redirect(url_for('cliente'))
 
 
@@ -91,7 +92,7 @@ def deletecliente(Idcliente):
     my_data = Clientes.query.get(Idcliente)
     db.session.delete(my_data)
     db.session.commit()
-    # flash("Item deletado com sucesso!")
+    flash("Item deletado com sucesso!")
     return redirect(url_for('cliente'))
 
 
