@@ -2,6 +2,8 @@ import os
 
 # App config
 SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
+secret_key = "blablabla"
+
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Database

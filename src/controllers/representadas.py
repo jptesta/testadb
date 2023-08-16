@@ -28,7 +28,7 @@ def representadas():
         db.session.add(repres)
         db.session.commit()
         # flash("Dados inseridos com sucesso!")
-        return redirect(url_for('representadas'))
+        return redirect(url_for('representadas.representadas'))
 
     return render_template('representadas.html', repre=repres)
 
@@ -47,7 +47,7 @@ def editrepresentada():
         my_data.estado = request.form['estado']
         my_data.cep = request.form['cep']
         my_data.comissao = request.form['comissao']
-        return redirect(url_for('representadas', repres=my_data))
+        return redirect(url_for('representadas.representadas', repres=my_data))
     return render_template('representadas.html')
 
 

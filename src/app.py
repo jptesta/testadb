@@ -13,3 +13,4 @@ migrate = Migrate(app, db)
 app.register_blueprint(bp_default)
 app.register_blueprint(bp_transportadoras)
 app.register_blueprint(bp_representadas)
+

@@ -6,8 +6,8 @@ bp_transportadoras = Blueprint("transportadoras", __name__,template_folder="../t
 
 
 # CADASTRO DE TRANSPORTADORA
-@bp_transportadoras.route('/transportadora', methods=['GET', 'POST'])
-def transportadora():
+@bp_transportadoras.route('/transportadoras', methods=['GET', 'POST'])
+def transportadoras():
     my_data = db.session.query(Transportadoras).all()
     if request.method == "POST":
         transportadora = request.form['transportadora']
@@ -17,13 +17,14 @@ def transportadora():
         my_data = Transportadoras(Transportadora=transportadora, Cidade=cidade, Estado=estado, Telefone=telefone)
         db.session.add(my_data)
         db.session.commit()
-        # flash("Dados inseridos com sucesso!")
-        return redirect(url_for('transportadora'))
+        #flash("Dados inseridos com sucesso!")
+        return redirect(url_for('transportadoras.transportadoras'))
 
-    return render_template('transportadora.html', listatransportadoras=my_data)
+    return render_template('transportadoras.html', listatransportadoras=my_data)
 
 
-# ATUALIZAÇÃO DO CADASTRO DA TRANSPORTADORA
+# ATUALIZAÇÃO DO CADASTRO DA TRANSPORTADORA 
+# TA COM PROBLEMA 
 @bp_transportadoras.route('/updatetransp/', methods=['POST', 'GET'])
 def updatetransp():
     if request.method == "POST":
@@ -34,8 +35,9 @@ def updatetransp():
         my_data.Estado = request.form['estado']
         my_data.Telefone = request.form['telefone']
         db.session.commit()
-        # flash("Dados alterados com sucesso!")
-        return redirect(url_for('transportadora', listatransportadoras=my_data))
+        #flash("Dados alterados com sucesso!")
+        return redirect(url_for('transportadoras.updatetransp', listatransportadoras=my_data))
+    #return render_template('transportadoras.html')
 
 
 # DELETAR A TRANSPORTADORA
@@ -44,7 +46,7 @@ def deletetransp(idtransportadora):
     my_data = Transportadoras.query.get(idtransportadora)
     db.session.delete(my_data)
     db.session.commit()
-    # flash("Item deletado com sucesso!")
-    return redirect(url_for('transportadora'))
+    #flash("Item deletado com sucesso!")
+    return redirect(url_for('transportadoras.transportadoras'))
 
 
