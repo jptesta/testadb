@@ -24,7 +24,7 @@ def transportadoras():
 
 
 # ATUALIZAÇÃO DO CADASTRO DA TRANSPORTADORA 
-# TA COM PROBLEMA 
+
 @bp_transportadoras.route('/updatetransp/', methods=['POST', 'GET'])
 def updatetransp():
     if request.method == "POST":
@@ -36,8 +36,8 @@ def updatetransp():
         my_data.Telefone = request.form['telefone']
         db.session.commit()
         #flash("Dados alterados com sucesso!")
-        return redirect(url_for('transportadoras.updatetransp', listatransportadoras=my_data))
-    #return render_template('transportadoras.html')
+        return redirect(url_for('transportadoras.transportadoras'))
+    return render_template('transportadoras.html')
 
 
 # DELETAR A TRANSPORTADORA

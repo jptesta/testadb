@@ -46,16 +46,25 @@ def cliente():
         caixa_postal = request.form['caixa_postal']
         status = request.form['status']
         pagamentos = request.form['pagamentos']
-        my_data = Clientes(Razao_social=razao_social, Nome_fantasia=nome_fantasia, Cnpj=cnpj,
+        my_data = Clientes(Razao_social=razao_social, 
+                           Nome_fantasia=nome_fantasia, 
+                           Cnpj=cnpj,
                            Inscricao_estadual=inscricao_estadual,
-                           Telefone=telefone, Celular=celular,
-                           Email=email, Danfe=danfe, Site=site,
-                           Vendedor=vendedor, Visita=visita,
-                           Observacoes=observacoes, Caixa_postal=caixa_postal, Status=status, Pagamentos=pagamentos)
+                           Telefone=telefone, 
+                           Celular=celular,
+                           Email=email, 
+                           Danfe=danfe, 
+                           Site=site,
+                           Vendedor=vendedor,
+                           Visita=visita,
+                           Observacoes=observacoes, 
+                           Caixa_postal=caixa_postal,
+                           Status=status, 
+                           Pagamentos=pagamentos)
         db.session.add(my_data)
         db.session.commit()
         # flash("Cliente cadastrado com sucessso!")
-        return redirect(url_for('cliente'))
+        return redirect(url_for('default.cliente'))
     return render_template("cliente.html", listaclientes=my_data)
 
 
@@ -82,8 +91,8 @@ def editcliente():
         my_data.Pagamentos = request.form['pagamentos']
         db.session.add(my_data)
         db.session.commit()
-        flash("Cliente alterado com sucesso!!")
-        return redirect(url_for('cliente'))
+        #flash("Cliente alterado com sucesso!!")
+        return redirect(url_for('default.cliente'))
 
 
 # DELETAR CLIENTE
@@ -92,8 +101,8 @@ def deletecliente(Idcliente):
     my_data = Clientes.query.get(Idcliente)
     db.session.delete(my_data)
     db.session.commit()
-    flash("Item deletado com sucesso!")
-    return redirect(url_for('cliente'))
+    #flash("Item deletado com sucesso!")
+    return redirect(url_for('default.cliente'))
 
 
 # CADASTRO DE ENDEREÇOS DE CLIENTES

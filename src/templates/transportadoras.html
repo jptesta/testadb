@@ -106,7 +106,7 @@
         <td>{{row.Estado}}</td>
         <td>{{row.Telefone}}</td>
         <td> 
-            <a href="/updatetransp/{{row.idtransportadora}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledittransportadora{{row.idtransportadora}}">Editar</a>
+            <a href="/updatetransp{{row.idtransportadora}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledittransportadora{{row.idtransportadora}}">Editar</a>
             <a href="/deletetransp/{{row.idtransportadora}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar')">Apagar</a>  
         </td>
     </tr>
