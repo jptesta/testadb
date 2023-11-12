@@ -121,7 +121,7 @@ def clientesenderecos():
                                     Estado=estado, Cep=cep)
         db.session.add(my_data)
         db.session.commit()
-        return redirect(url_for('clientesenderecos'))
+        return redirect(url_for('default.clientesenderecos'))
 
     return render_template('clientesenderecos.html', listaenderecos=my_data)
 
@@ -137,7 +137,7 @@ def editclientesenderecos():
         my_data.cidade = request.form['cidade']
         my_data.estado = request.form['estado']
         my_data.cep = request.form['cep']
-        return redirect(url_for('clientesenderecos'))
+        return redirect(url_for('default.clientesenderecos'))
     return render_template('clientesenderecos.html')
 
 
@@ -155,7 +155,7 @@ def clientescontatos():
         my_data = Clientescontatos(Nome=nome, Cargo=cargo, Telefone=telefone, Ramal=ramal, Celular=celular, Email=email)
         db.session.add(my_data)
         db.session.commit()
-        return redirect(url_for('clientescontatos'))
+        return redirect(url_for('default.clientescontatos'))
     return render_template('clientescontatos.html', listacontatos=my_data)
 
 
@@ -169,7 +169,7 @@ def editclientescontatos():
         my_data.ramal = request.form['ramal']
         my_data.celular = request.form['celular']
         my_data.email = request.form['email']
-        return redirect(url_for('clientescontatos'))
+        return redirect(url_for('default.clientescontatos'))
     return render_template('clientescontatos.html')
 
 
@@ -179,7 +179,7 @@ def deleteclientescontatos(Idclientecontato):
     db.session.delete(my_data)
     db.session.commit()
     flash("contato deletado com sucesso")
-    return redirect(url_for('clientescontatos'))
+    return redirect(url_for('default.clientescontatos'))
 
 
 
@@ -210,7 +210,7 @@ def contatosrealizados():
                                      Metodo_de_contato=metodo_de_contato, Descricao=descricao_contato)
         db.session.add(my_data)
         db.session.commit()
-        return redirect(url_for('contatosrealizados'))
+        return redirect(url_for('default.contatosrealizados'))
     return render_template('contatosrealizados.html', my_data=my_data)
 
 
